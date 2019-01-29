@@ -22,7 +22,7 @@ window.onload = function() {
     });
 
     var fulfillmentCallback = function(results, status) {
-      if (status != 'success') {
+      if (status !== 'success') {
         _alert({ message: gettext('Could not get fulfillment details') }, 'warning');
         console.error(error);
         unloading_button($('.submitBounty'));
@@ -135,13 +135,13 @@ window.onload = function() {
 
       var isError = false;
 
-      if ($('#terms:checked').length == 0) {
+      if ($('#terms:checked').length === 0) {
         _alert({ message: gettext('Please accept the terms of service.') }, 'warning');
         isError = true;
       } else {
         localStorage['acceptTOS'] = true;
       }
-      if (issueURL == '') {
+      if (issueURL === '') {
         _alert({ message: gettext('Please enter a issue URL.') }, 'warning');
         isError = true;
       }
@@ -158,7 +158,7 @@ window.onload = function() {
       loading_button($(this));
 
       var apiCallback = function(results, status) {
-        if (status != 'success') {
+        if (status !== 'success') {
           _alert({ message: gettext('Could not get bounty details') }, 'warning');
           console.error(error);
           unloading_button($('.submitBounty'));
@@ -181,11 +181,11 @@ window.onload = function() {
 
         var errormsg = undefined;
 
-        if (bountyAmount == 0 || open == false || initialized == false) {
+        if (bountyAmount === 0 || open === false || initialized === false) {
           errormsg = gettext('No active funding found at this address.  Are you sure this is an active funded issue?');
-        } else if (claimeeAddress == '0x0000000000000000000000000000000000000000') {
+        } else if (claimeeAddress === '0x0000000000000000000000000000000000000000') {
           errormsg = gettext('No claimee found for this bounty.');
-        } else if (fromAddress != web3.eth.coinbase) {
+        } else if (fromAddress !== web3.eth.coinbase) {
           errormsg = gettext('You can only process a funded issue if you submitted it initially.');
         }
 
