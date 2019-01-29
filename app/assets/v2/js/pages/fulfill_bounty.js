@@ -5,12 +5,12 @@ window.onload = function() {
     waitforWeb3(actions_page_warn_if_not_on_same_network);
     var account = web3.eth.accounts[0];
 
-    if (typeof localStorage['githubUsername'] != 'undefined') {
+    if (typeof localStorage['githubUsername'] !== 'undefined') {
       if (!$('input[name=githubUsername]').val()) {
         $('input[name=githubUsername]').val(localStorage['githubUsername']);
       }
     }
-    if (typeof localStorage['notificationEmail'] != 'undefined') {
+    if (typeof localStorage['notificationEmail'] !== 'undefined') {
       $('input[name=notificationEmail]').val(localStorage['notificationEmail']);
     }
     if (getParam('source')) {
@@ -81,7 +81,7 @@ window.onload = function() {
 
           if (error) {
             console.error(error);
-            ignore_error = String(error).indexOf('BigNumber') != -1;
+            ignore_error = String(error).indexOf('BigNumber') !== -1;
           }
           document.ipfsDataHash = result; // Cache IPFS data hash
           var run_main = !error || ignore_error;
