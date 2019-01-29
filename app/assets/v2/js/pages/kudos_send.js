@@ -4,7 +4,7 @@ var get_gas_price = function() {
   if ($('#gasPrice').length) {
     return $('#gasPrice').val() * Math.pow(10, 9);
   }
-  if (typeof defaultGasPrice != 'undefined') {
+  if (typeof defaultGasPrice !== 'undefined') {
     return defaultGasPrice;
   }
   // 5 gwei
@@ -12,7 +12,7 @@ var get_gas_price = function() {
 };
 
 var generate_or_get_private_key = function() {
-  if (typeof document.account != 'undefined') {
+  if (typeof document.account !== 'undefined') {
     return document.account;
   }
   document.account = new Accounts().new();
@@ -42,7 +42,7 @@ var set_metadata = function(callback) {
 // Step 6
 var wait_for_metadata = function(callback) {
   setTimeout(function() {
-    if ((typeof document.hash1 != 'undefined') && (document.hash1 != null)) {
+    if ((typeof document.hash1 !== 'undefined') && (document.hash1 != null)) {
       console.log('document.hash1 = ' + document.hash1);
       var account = generate_or_get_private_key();
 
@@ -113,13 +113,13 @@ var updateEstimate = function(e) {
 var etherscanDomain = function() {
   var etherscanDomain = 'etherscan.io';
 
-  if (document.web3network == 'custom network') {
+  if (document.web3network === 'custom network') {
     // testrpc
     etherscanDomain = 'localhost';
-  } else if (document.web3network == 'rinkeby') {
+  } else if (document.web3network === 'rinkeby') {
     // rinkeby
     etherscanDomain = 'rinkeby.etherscan.io';
-  } else if (document.web3network == 'ropsten') {
+  } else if (document.web3network === 'ropsten') {
     // ropsten
     etherscanDomain = 'ropsten.etherscan.io';
   } else {
@@ -206,7 +206,7 @@ $(document).ready(function() {
 
     e.preventDefault();
 
-    if (typeof web3 == 'undefined') {
+    if (typeof web3 === 'undefined') {
       _alert({ message: gettext('You must have a web3 enabled browser to do this.  Please download Metamask.') }, 'warning');
       return;
     }
@@ -216,7 +216,7 @@ $(document).ready(function() {
     }
     var kudos_network = $('#kudosNetwork').val();
 
-    if (document.web3network != kudos_network) {
+    if (document.web3network !== kudos_network) {
       _alert({ message: gettext('You are not on the right web3 network.  Please switch to ' + kudos_network) }, 'warning');
       return;
     }
@@ -339,14 +339,14 @@ $(document).ready(function() {
 // Step 3
 function sendKudos(email, github_url, from_name, username, amountInEth, comments_public, comments_priv, from_email, accept_tos, to_eth_address, expires, kudosId, tokenId, success_callback, failure_callback, is_for_bounty_fulfiller) {
 
-  if (typeof web3 == 'undefined') {
+  if (typeof web3 === 'undefined') {
     _alert({ message: gettext('You must have a web3 enabled browser to do this.  Please download Metamask.') }, 'warning');
     failure_callback();
     return;
   }
   // setup
 
-  if (username && username.indexOf('@') == -1) {
+  if (username && username.indexOf('@') === -1) {
     username = '@' + username;
   }
   var _disableDeveloperTip = true;
@@ -363,8 +363,8 @@ function sendKudos(email, github_url, from_name, username, amountInEth, comments
   // validation
   // console.log(amountInEth)
   // console.log(amountInWei)
-  var hasEmail = email != '';
-  var hasUsername = username != '';
+  var hasEmail = email !== '';
+  var hasUsername = username !== '';
 
   // Step 4
   // validation
@@ -378,12 +378,12 @@ function sendKudos(email, github_url, from_name, username, amountInEth, comments
     failure_callback();
     return;
   }
-  if (from_email != '' && !validateEmail(from_email)) {
+  if (from_email !== '' && !validateEmail(from_email)) {
     _alert({ message: gettext('From Email is optional, but if you enter an email, you must enter a valid email!') }, 'warning');
     failure_callback();
     return;
   }
-  if (!isNumeric(amountInWei) || amountInWei == 0) {
+  if (!isNumeric(amountInWei) || amountInWei === 0) {
     _alert({ message: gettext('You must enter a number for the amount!') }, 'warning');
     failure_callback();
     return;
@@ -395,7 +395,7 @@ function sendKudos(email, github_url, from_name, username, amountInEth, comments
   }
 
   // warnings
-  if (username == $('#fromName').val()) {
+  if (username === $('#fromName').val()) {
     _alert({ message: gettext('Kudos are intended to be compliments. just like you *can* give yourself a compliment or *can* give yourself an award, you are also able to send yourself a Kudos. ') }, 'warning');
   }
 
@@ -446,7 +446,7 @@ function sendKudos(email, github_url, from_name, username, amountInEth, comments
       // console.log(response)
       return response.json();
     }).then(function(json) {
-      var is_success = json['status'] == 'OK';
+      var is_success = json['status'] === 'OK';
       var _class = is_success ? 'info' : 'error';
 
       if (!is_success) {
@@ -479,7 +479,7 @@ function sendKudos(email, github_url, from_name, username, amountInEth, comments
             }).then(function(response) {
               return response.json();
             }).then(function(json) {
-              var is_success = json['status'] == 'OK';
+              var is_success = json['status'] === 'OK';
 
               if (!is_success) {
                 _alert(json, _class);
