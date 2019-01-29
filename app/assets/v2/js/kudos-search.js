@@ -9,7 +9,7 @@ function kudosSearch(elem) {
     var autocomplete_html = '';
 
     for (var i = 0; i < auto_terms.length; i++) {
-      var delimiter = i == auto_terms.length - 1 ? '' : '|';
+      var delimiter = i === auto_terms.length - 1 ? '' : '|';
 
       autocomplete_html += " <a class=kudos_autocomplete href='#'>" + auto_terms[i] + '</a> ' + delimiter;
     }
