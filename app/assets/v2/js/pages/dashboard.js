@@ -102,7 +102,7 @@ var buildURI = function() {
   _filters.push('keywords', 'order_by', 'org');
   _filters.forEach((filter) => {
     if (localStorage[filter] &&
-      localStorage[filter] != 'any') {
+      localStorage[filter] !== 'any') {
       uri += (filter + '=' + localStorage[filter] + '&');
     }
   });
@@ -377,7 +377,7 @@ var trigger_scroll = debounce(function() {
   var scrollPos = $(document).scrollTop();
   var last_active_bounty = $('.bounty_row.result:last-child');
 
-  if (last_active_bounty.length == 0) {
+  if (last_active_bounty.length === 0) {
     return;
   }
 
@@ -494,7 +494,7 @@ var refreshBounties = function(event, offset, append, do_save_search) {
     }
 
     $('#results-count span.num').html(offset + results.length);
-    if (results.length == results_limit) {
+    if (results.length === results_limit) {
       $('#results-count span.plus').html('+');
     } else {
       $('#results-count span.plus').html('');
@@ -522,7 +522,7 @@ var resetFilters = function(resetKeyword) {
     var tag = ($('input[name="' + filter + '"][value]'));
 
     for (var j = 0; j < tag.length; j++) {
-      if (tag[j].value == 'any')
+      if (tag[j].value === 'any')
         $('input[name="' + filter + '"][value="any"]').prop('checked', true);
       else
         $('input[name="' + filter + '"][value="' + tag[j].value + '"]').prop('checked', false);
@@ -689,7 +689,7 @@ $(document).ready(function() {
 
 
   $('.search-area input[type=text]').keypress(function(e) {
-    if (e.which == 13) {
+    if (e.which === 13) {
       reset_offset();
       refreshBounties(null, 0, false, true);
       e.preventDefault();
@@ -738,8 +738,8 @@ var is_search_already_saved = function() {
     var new_key = '_name_' + i;
     var result = localStorage[new_key];
 
-    if (typeof result != 'undefined') {
-      if (this_search == result) {
+    if (typeof result !== 'undefined') {
+      if (this_search === result) {
         return true;
       }
     }
@@ -751,7 +751,7 @@ var is_search_already_saved = function() {
 
 // saves search info in local storage
 var save_search = function() {
-  if (typeof localStorage['searches'] == 'undefined') {
+  if (typeof localStorage['searches'] === 'undefined') {
     localStorage['searches'] = '0';
   }
   searches = localStorage['searches'].split(',');
@@ -783,7 +783,7 @@ var get_search_tab_name = function(n) {
 
 // gets available searches
 var get_available_searches = function() {
-  if (typeof localStorage['searches'] == 'undefined') {
+  if (typeof localStorage['searches'] === 'undefined') {
     localStorage['searches'] = '';
   }
   return localStorage['searches'].split(',');
@@ -802,7 +802,7 @@ var load_search = function(n) {
 
 // removes this search
 var remove_search = function(n) {
-  var is_last_element = ('0,' + n) == localStorage['searches'];
+  var is_last_element = ('0,' + n) === localStorage['searches'];
 
   if (is_last_element) {
     localStorage['searches'] = '0';
