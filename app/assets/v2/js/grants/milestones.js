@@ -12,7 +12,7 @@ $(document).ready(function() {
 
     form.find('input[name="method"]').val(method);
 
-    if (method == 'PUT') {
+    if (method === 'PUT') {
       form.validate();
     }
 
