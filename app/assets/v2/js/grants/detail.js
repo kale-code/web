@@ -60,7 +60,7 @@ $(document).ready(function() {
     let edit_amount_goal = $('#amount_goal').val();
     let edit_grant_members = $('#grant-members').val();
 
-    if (editableFields['edit_admin_profile'] && editableFields['edit_admin_profile'] != edit_admin_profile)
+    if (editableFields['edit_admin_profile'] && editableFields['edit_admin_profile'] !== edit_admin_profile)
       localStorage['request_change'] = 'R';
 
     $.ajax({
@@ -201,9 +201,9 @@ const copyDuplicateDetails = () => {
 
   $('#cancel-details').on('click', (event) => {
     editableFields.forEach(field => {
-      if (field == '#grant-admin')
+      if (field === '#grant-admin')
         $(field).val([obj[field]]).trigger('change');
-      else if (field == '#grant-members')
+      else if (field === '#grant-members')
         $(field).val(obj[field]).trigger('change');
       else
         $(field).val(obj[field]);
