@@ -26,13 +26,13 @@ $(document).ready(function() {
         // translate timeAmount&timeType to requiredPeriodSeconds
         let periodSeconds = data.frequency;
 
-        if (data.frequency_unit == 'days') {
+        if (data.frequency_unit === 'days') {
           periodSeconds *= 86400;
-        } else if (data.frequency_unit == 'hours') {
+        } else if (data.frequency_unit === 'hours') {
           periodSeconds *= 3600;
-        } else if (data.frequency_unit == 'minutes') {
+        } else if (data.frequency_unit === 'minutes') {
           periodSeconds *= 60;
-        } else if (data.frequency_unit == 'months') {
+        } else if (data.frequency_unit === 'months') {
           periodSeconds *= 2592000;
         }
         if (periodSeconds) {
@@ -44,7 +44,7 @@ $(document).ready(function() {
       let deployedToken;
       let selected_token;
 
-      if (data.token_address != '0x0000000000000000000000000000000000000000') {
+      if (data.token_address !== '0x0000000000000000000000000000000000000000') {
         selected_token = data.token_address;
         deployedToken = new web3.eth.Contract(compiledToken.abi, data.token_address);
         $('#sub_token_address').val(data.token_address);
@@ -174,7 +174,7 @@ $(document).ready(function() {
   });
 
   waitforWeb3(function() {
-    if (document.web3network != $('#network').val()) {
+    if (document.web3network !== $('#network').val()) {
       $('#js-fundGrant-button').prop('disabled', true);
       let network = $('#network').val();
 
