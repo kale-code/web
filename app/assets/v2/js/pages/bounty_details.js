@@ -3,7 +3,7 @@
 /* eslint no-loop-func: "warn" */
 
 const _truthy = function(val) {
-  if (!val || val == '0x0000000000000000000000000000000000000000') {
+  if (!val || val === '0x0000000000000000000000000000000000000000') {
     return false;
   }
   return true;
@@ -25,7 +25,7 @@ var gitcoin_ize = function(key, val) {
 
 var email_ize = function(key, val) {
 
-  if (val == 'Anonymous' || val == '') {
+  if (val === 'Anonymous' || val === '') {
     $('#bounty_owner_email').remove();
     $('#bounty_owner_email_label').remove();
   }
@@ -125,7 +125,7 @@ var callbacks = {
   'status': function(key, val, result) {
     var ui_status = val;
 
-    if (ui_status == 'open') {
+    if (ui_status === 'open') {
       ui_status = '<span>' + gettext('OPEN ISSUE') + '</span>';
 
       let soft = result['can_submit_after_expiration_date'];
@@ -138,16 +138,16 @@ var callbacks = {
           '</p>';
       }
     }
-    if (ui_status == 'started') {
+    if (ui_status === 'started') {
       ui_status = '<span>' + gettext('work started') + '</span>';
     }
-    if (ui_status == 'submitted') {
+    if (ui_status === 'submitted') {
       ui_status = '<span>' + gettext('work submitted') + '</span>';
     }
-    if (ui_status == 'done') {
+    if (ui_status === 'done') {
       ui_status = '<span>' + gettext('done') + '</span>';
     }
-    if (ui_status == 'cancelled') {
+    if (ui_status === 'cancelled') {
       ui_status = '<span style="color: #f9006c;">' + gettext('cancelled') + '</span>';
     }
     return [ 'status', ui_status ];
@@ -170,7 +170,7 @@ var callbacks = {
     return [ 'funding_organisation', result.funding_organisation ];
   },
   'permission_type': function(key, val, result) {
-    if (val == 'approval') {
+    if (val === 'approval') {
       val = 'Approval Required';
     }
     return [ 'permission_type', ucwords(val) ];
@@ -187,7 +187,7 @@ var callbacks = {
     return [ 'admin_override_suspend_auto_approval', val ? 'off' : 'on' ];
   },
   'issue_keywords': function(key, val, result) {
-    if (!result.keywords || result.keywords.length == 0)
+    if (!result.keywords || result.keywords.length === 0)
       return [ 'issue_keywords', null ];
 
     var keywords = result.keywords.split(',');
@@ -199,7 +199,7 @@ var callbacks = {
     return [ 'issue_keywords', tags ];
   },
   'value_in_eth': function(key, val, result) {
-    if (result['token_name'] == 'ETH' || val === null) {
+    if (result['token_name'] === 'ETH' || val === null) {
       return [ null, null ];
     }
     return [ 'Amount (ETH)', Math.round((parseInt(val) / Math.pow(10, 18)) * 1000) / 1000 ];
@@ -215,7 +215,7 @@ var callbacks = {
     return [ 'Amount_usd', val ];
   },
   'fulfillment_accepted_on': function(key, val, result) {
-    if (val === null || typeof val == 'undefined') {
+    if (val === null || typeof val === 'undefined') {
       $('#fulfillment_accepted_on_wrapper').addClass('hidden');
       return [ null, null ];
     }
@@ -224,7 +224,7 @@ var callbacks = {
     return [ 'fulfillment_accepted_on', timePeg ];
   },
   'network': function(key, val, result) {
-    if (val == 'mainnet') {
+    if (val === 'mainnet') {
       $('#network').addClass('hidden');
       return [ null, null ];
     }
@@ -299,7 +299,7 @@ var callbacks = {
     return [ key, val ];
   },
   'token_value_time_peg': function(key, val, result) {
-    if (val === null || typeof val == 'undefined') {
+    if (val === null || typeof val === 'undefined') {
       $('#token_value_time_peg_wrapper').addClass('hidden');
       return [ null, null ];
     }
@@ -308,7 +308,7 @@ var callbacks = {
     return [ 'token_value_time_peg', timePeg ];
   },
   'token_value_in_usdt': function(key, val, result) {
-    if (val === null || typeof val == 'undefined') {
+    if (val === null || typeof val === 'undefined') {
       $('#value_in_usdt_wrapper').addClass('hidden');
       return [ null, null ];
     }
@@ -361,13 +361,13 @@ var callbacks = {
       var interested = result.interested;
 
       interested.forEach(function(_interested, position) {
-        var name = (position == interested.length - 1) ?
+        var name = (position === interested.length - 1) ?
           _interested.profile.handle : _interested.profile.handle.concat(',');
 
         if (!_interested.pending)
           started.push(profileHtml(_interested.profile.handle, name));
       });
-      if (started.length == 0)
+      if (started.length === 0)
         started.push('<i class="fas fa-minus"></i>');
     }
     return [ 'started_owners_username', started ];
@@ -379,12 +379,12 @@ var callbacks = {
       var submitted = result.fulfillments;
 
       submitted.forEach(function(_submitted, position) {
-        var name = (position == submitted.length - 1) ?
+        var name = (position === submitted.length - 1) ?
           _submitted.fulfiller_github_username : _submitted.fulfiller_github_username.concat(',');
 
         accepted.push(profileHtml(_submitted.fulfiller_github_username, name));
       });
-      if (accepted.length == 0) {
+      if (accepted.length === 0) {
         accepted.push('<i class="fas fa-minus"></i>');
       }
     }
@@ -394,11 +394,11 @@ var callbacks = {
     var accepted = [];
 
     if (result.paid) {
-      if (result.paid.length == 0) {
+      if (result.paid.length === 0) {
         accepted.push('<i class="fas fa-minus"></i>');
       } else {
         result.paid.forEach((github_username, position) => {
-          var name = (position == result.paid.length - 1) ?
+          var name = (position === result.paid.length - 1) ?
             github_username : github_username.concat(',');
 
           accepted.push(profileHtml(github_username, name));
@@ -450,30 +450,30 @@ const isAvailableIfReserved = function(bounty) {
 var isBountyOwner = function(result) {
   var bountyAddress = result['bounty_owner_address'];
 
-  if (typeof web3 == 'undefined') {
+  if (typeof web3 === 'undefined') {
     return false;
   }
-  if (typeof web3.eth.coinbase == 'undefined' || !web3.eth.coinbase) {
+  if (typeof web3.eth.coinbase === 'undefined' || !web3.eth.coinbase) {
     return false;
   }
 
-  return (web3.eth.coinbase.toLowerCase() == bountyAddress.toLowerCase());
+  return (web3.eth.coinbase.toLowerCase() === bountyAddress.toLowerCase());
 };
 
 var isBountyOwnerPerLogin = function(result) {
   var bounty_owner_github_username = result['bounty_owner_github_username'];
 
-  return bounty_owner_github_username == document.contxt['github_handle'];
+  return bounty_owner_github_username === document.contxt['github_handle'];
 };
 
 var update_title = function() {
   document.original_title_text = $('title').text();
   setInterval(function() {
-    if (document.prepend_title == '(...)') {
+    if (document.prepend_title === '(...)') {
       document.prepend_title = '(*..)';
-    } else if (document.prepend_title == '(*..)') {
+    } else if (document.prepend_title === '(*..)') {
       document.prepend_title = '(.*.)';
-    } else if (document.prepend_title == '(.*.)') {
+    } else if (document.prepend_title === '(.*.)') {
       document.prepend_title = '(..*)';
     } else {
       document.prepend_title = '(...)';
@@ -490,7 +490,7 @@ var showWarningMessage = function(txid) {
   $('.interior .body').addClass('open');
   $('.interior .body').addClass('loading');
 
-  if (typeof txid != 'undefined' && txid.indexOf('0x') != -1) {
+  if (typeof txid !== 'undefined' && txid.indexOf('0x') !== -1) {
     waitforWeb3(function() {
       clearInterval(interval);
       var link_url = etherscan_tx_url(txid);
@@ -512,15 +512,15 @@ waitforWeb3(function() {
     if (document.web3Changed) {
       return;
     }
-    if (typeof document.lastWeb3Network == 'undefined') {
+    if (typeof document.lastWeb3Network === 'undefined') {
       document.lastWeb3Network = document.web3network;
       return;
     }
-    if (typeof document.lastCoinbase == 'undefined') {
+    if (typeof document.lastCoinbase === 'undefined') {
       document.lastCoinbase = web3.eth.coinbase;
       return;
     }
-    var hasChanged = (document.lastCoinbase != web3.eth.coinbase) || (document.lastWeb3Network != document.web3network);
+    var hasChanged = (document.lastCoinbase !== web3.eth.coinbase) || (document.lastWeb3Network !== document.web3network);
 
     if (hasChanged) {
       _alert(gettext('Detected a web3 change.  Refreshing the page. '), 'info');
@@ -533,7 +533,7 @@ waitforWeb3(function() {
 
 var wait_for_tx_to_mine_and_then_ping_server = function() {
   console.log('checking for updates');
-  if (typeof document.pendingIssueMetadata != 'undefined') {
+  if (typeof document.pendingIssueMetadata !== 'undefined') {
     var txid = document.pendingIssueMetadata['txid'];
 
     console.log('waiting for web3 to be available');
@@ -551,7 +551,7 @@ var wait_for_tx_to_mine_and_then_ping_server = function() {
           document.location.href = document.location.href;
         };
         var success = function(response) {
-          if (response.status == '200') {
+          if (response.status === '200') {
             console.log('success from sync/web', response);
 
             // clear local data
@@ -586,7 +586,7 @@ var wait_for_tx_to_mine_and_then_ping_server = function() {
 var attach_work_actions = function() {
   $('body').delegate('a[href="/interested"], a[href="/uninterested"], a[href="/extend-deadlines"]', 'click', function(e) {
     e.preventDefault();
-    if ($(this).attr('href') == '/interested') {
+    if ($(this).attr('href') === '/interested') {
       show_interest_modal.call(this);
     } else if ($(this).attr('href') === '/extend-deadlines') {
       show_extend_deadline_modal.call(this);
@@ -603,7 +603,7 @@ var attach_contact_funder_options = function() {
   $('body').delegate('a.contact_bounty_hunter', 'click', function(e) {
     e.preventDefault();
     var text = window.prompt('What would you like to say to the funder?', '');
-    var connector_char = document.location.href.indexOf('?') == -1 ? '?' : '&';
+    var connector_char = document.location.href.indexOf('?') === -1 ? '?' : '&';
     var url = document.location + connector_char + 'admin_contact_funder=' + text;
 
     document.location.href = url;
@@ -615,7 +615,7 @@ var attach_snoozee_options = function() {
   $('body').delegate('a.snooze_gitcoin_bot', 'click', function(e) {
     e.preventDefault();
     var text = window.prompt('How many days do you want to snooze?', '');
-    var connector_char = document.location.href.indexOf('?') == -1 ? '?' : '&';
+    var connector_char = document.location.href.indexOf('?') === -1 ? '?' : '&';
     var url = document.location + connector_char + 'snooze=' + text;
 
     document.location.href = url;
@@ -626,7 +626,7 @@ var attach_override_status = function() {
   $('body').delegate('a.admin_override_satatus', 'click', function(e) {
     e.preventDefault();
     var text = window.prompt('What new status (valid choices: "open", "started", "submitted", "done", "expired", "cancelled", "" to remove override )?', '');
-    var connector_char = document.location.href.indexOf('?') == -1 ? '?' : '&';
+    var connector_char = document.location.href.indexOf('?') === -1 ? '?' : '&';
     var url = document.location + connector_char + 'admin_override_satatus=' + text;
 
     document.location.href = url;
@@ -830,7 +830,7 @@ const is_current_user_interested = function(result) {
   if (!document.contxt.github_handle) {
     return false;
   }
-  return !!(result.interested || []).find(interest => interest.profile.handle.toLowerCase() == document.contxt.github_handle.toLowerCase());
+  return !!(result.interested || []).find(interest => interest.profile.handle.toLowerCase() === document.contxt.github_handle.toLowerCase());
 };
 
 const is_current_user_approved = function(result) {
@@ -854,12 +854,12 @@ const is_current_user_approved = function(result) {
 };
 
 var do_actions = function(result) {
-  var is_legacy = result['web3_type'] == 'legacy_gitcoin';
-  var is_status_expired = result['status'] == 'expired';
-  var is_status_done = result['status'] == 'done';
-  var is_status_cancelled = result['status'] == 'cancelled';
+  var is_legacy = result['web3_type'] === 'legacy_gitcoin';
+  var is_status_expired = result['status'] === 'expired';
+  var is_status_done = result['status'] === 'done';
+  var is_status_cancelled = result['status'] === 'cancelled';
   var can_submit_after_expiration_date = result['can_submit_after_expiration_date'];
-  var is_still_on_happy_path = result['status'] == 'open' || result['status'] == 'started' || result['status'] == 'submitted' || (can_submit_after_expiration_date && result['status'] == 'expired');
+  var is_still_on_happy_path = result['status'] === 'open' || result['status'] === 'started' || result['status'] === 'submitted' || (can_submit_after_expiration_date && result['status'] === 'expired');
   var needs_review = result['needs_review'];
   const is_open = result['is_open'];
 
@@ -872,10 +872,10 @@ var do_actions = function(result) {
 
   const current_user_is_approved = is_current_user_approved(result);
   // which actions should we show?
-  const should_block_from_starting_work = !is_interested && result['project_type'] == 'traditional' && (result['status'] == 'started' || result['status'] == 'submitted');
+  const should_block_from_starting_work = !is_interested && result['project_type'] === 'traditional' && (result['status'] === 'started' || result['status'] === 'submitted');
   let show_start_stop_work = is_still_on_happy_path && !should_block_from_starting_work &&
     is_open && !isBountyOwner(result) && isAvailableIfReserved(result);
-  let show_github_link = result['github_url'].substring(0, 4) == 'http';
+  let show_github_link = result['github_url'].substring(0, 4) === 'http';
   let show_submit_work = is_open && !has_fulfilled;
   let show_kill_bounty = !is_status_done && !is_status_expired && !is_status_cancelled && isBountyOwner(result);
   let show_job_description = result['attached_job_description'] && result['attached_job_description'].startsWith('http');
@@ -885,7 +885,7 @@ var do_actions = function(result) {
   let show_extend_deadline = isBountyOwner(result) && !is_status_expired && !is_status_done;
   let show_invoice = isBountyOwner(result);
 
-  const show_suspend_auto_approval = currentProfile.isStaff && result['permission_type'] == 'approval' && !result['admin_override_suspend_auto_approval'];
+  const show_suspend_auto_approval = currentProfile.isStaff && result['permission_type'] === 'approval' && !result['admin_override_suspend_auto_approval'];
   const show_admin_methods = currentProfile.isStaff;
   const show_moderator_methods = currentProfile.isModerator;
   const show_change_bounty = is_still_on_happy_path && (isBountyOwner(result) || show_admin_methods);
@@ -1054,7 +1054,7 @@ var do_actions = function(result) {
 
 
   if (show_suspend_auto_approval) {
-    const connector_char = result['url'].indexOf('?') == -1 ? '?' : '&';
+    const connector_char = result['url'].indexOf('?') === -1 ? '?' : '&';
     const url = result['url'] + connector_char + 'suspend_auto_approval=1';
 
     const _entry = {
@@ -1071,7 +1071,7 @@ var do_actions = function(result) {
   }
 
   if (show_admin_methods) {
-    const connector_char = result['url'].indexOf('?') == -1 ? '?' : '&';
+    const connector_char = result['url'].indexOf('?') === -1 ? '?' : '&';
     const url = result['url'] + connector_char + 'admin_override_and_hide=1';
 
     const _entry = {
@@ -1088,7 +1088,7 @@ var do_actions = function(result) {
   }
 
   if (show_admin_methods || show_moderator_methods) {
-    const connector_char = result['url'].indexOf('?') == -1 ? '?' : '&';
+    const connector_char = result['url'].indexOf('?') === -1 ? '?' : '&';
     const url = result['url'] + connector_char + 'admin_toggle_as_remarket_ready=1';
 
     const _entry = {
@@ -1105,7 +1105,7 @@ var do_actions = function(result) {
   }
 
   if ((show_admin_methods || show_moderator_methods) && needs_review) {
-    const connector_char = result['url'].indexOf('?') == -1 ? '?' : '&';
+    const connector_char = result['url'].indexOf('?') === -1 ? '?' : '&';
     const url = result['url'] + connector_char + 'mark_reviewed=1';
 
     const _entry = {
@@ -1201,10 +1201,10 @@ const render_actions = function(actions) {
 const build_uri_for_pull_bounty_from_api = function() {
   let uri = '/actions/api/v0.1/bounties/?github_url=' + document.issueURL;
 
-  if (typeof document.issueNetwork != 'undefined') {
+  if (typeof document.issueNetwork !== 'undefined') {
     uri = uri + '&network=' + document.issueNetwork;
   }
-  if (typeof document.issue_stdbounties_id != 'undefined') {
+  if (typeof document.issue_stdbounties_id !== 'undefined') {
     uri = uri + '&standard_bounties_id=' + document.issue_stdbounties_id;
   }
   return uri;
@@ -1223,7 +1223,7 @@ var pull_bounty_from_api = function() {
       var result = results[i];
       // if the result from the database matches the one in question.
 
-      if (normalizeURL(result['github_url']) == normalizeURL(document.issueURL)) {
+      if (normalizeURL(result['github_url']) === normalizeURL(document.issueURL)) {
         nonefound = false;
 
         build_detail_page(result);
@@ -1339,7 +1339,7 @@ const only_one_approve = function(activities) {
     if (activity.uninterest_possible) {
       if (!iseen[activity.name]) {
         iseen[activity.name] = true;
-      } else if (activity.activity_type != 'start_work') {
+      } else if (activity.activity_type !== 'start_work') {
         activity.uninterest_possible = false;
         activity.slash_possible = false;
       }
@@ -1412,7 +1412,7 @@ var main = function() {
     attach_override_status();
 
     // pull issue URL
-    if (typeof document.issueURL == 'undefined') {
+    if (typeof document.issueURL === 'undefined') {
       document.issueURL = getParam('url');
     }
     $('#submitsolicitation a').attr('href', '/funding/new/?source=' + document.issueURL);
@@ -1424,7 +1424,7 @@ var main = function() {
     if (localStorage[document.issueURL]) {
       // validate pending issue metadata
       document.pendingIssueMetadata = JSON.parse(localStorage[document.issueURL]);
-      var is_metadata_valid = typeof document.pendingIssueMetadata != 'undefined' && document.pendingIssueMetadata !== null && typeof document.pendingIssueMetadata['timestamp'] != 'undefined';
+      var is_metadata_valid = typeof document.pendingIssueMetadata !== 'undefined' && document.pendingIssueMetadata !== null && typeof document.pendingIssueMetadata['timestamp'] !== 'undefined';
 
       if (is_metadata_valid) {
         // validate that the pending tx is within the last little while
