@@ -56,7 +56,7 @@ $('#issueURL').focusout(function() {
     $('#last-synced span').html(timeDifference(new Date(), new_bounty.last_sync));
   }, 6000);
 
-  if ($('input[name=issueURL]').val() == '' || !validURL($('input[name=issueURL]').val())) {
+  if ($('input[name=issueURL]').val() === '' || !validURL($('input[name=issueURL]').val())) {
     $('#issue-details, #issue-details-edit').hide();
     $('#no-issue-banner').show();
 
@@ -144,7 +144,7 @@ $(document).ready(function() {
     $('input[name=revisions]').val(revision);
   });
 
-  if ($('input[name=issueURL]').val() != '') {
+  if ($('input[name=issueURL]').val() !== '') {
     retrieveIssueDetails();
   }
   $('input[name=issueURL]').focus();
@@ -190,7 +190,7 @@ $(document).ready(function() {
     e.preventDefault();
     var target = $('#advanced_container');
 
-    if (target.css('display') == 'none') {
+    if (target.css('display') === 'none') {
       target.css('display', 'block');
       $(this).text('Advanced ⬆');
     } else {
@@ -317,7 +317,7 @@ $(document).ready(function() {
       // setup web3
       // TODO: web3 is using the web3.js file.  In the future we will move
       // to the node.js package.  github.com/ethereum/web3.js
-      var isETH = tokenAddress == '0x0000000000000000000000000000000000000000';
+      var isETH = tokenAddress === '0x0000000000000000000000000000000000000000';
       var token_contract = web3.eth.contract(token_abi).at(tokenAddress);
       var account = web3.eth.coinbase;
 
