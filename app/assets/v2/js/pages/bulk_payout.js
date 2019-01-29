@@ -3,7 +3,7 @@ const round = function(num, decimals) {
 };
 
 const normalizeUsername = function(username) {
-  if (username.indexOf('@') != 0) {
+  if (username.indexOf('@') !== 0) {
     return '@' + username;
   }
   return username;
@@ -59,7 +59,7 @@ $(document).ready(function($) {
     $('.entry_' + transaction['id']).addClass('active');
 
     // cancel bounty
-    if (transaction['type'] == 'cancel') {
+    if (transaction['type'] === 'cancel') {
       var callback = function(error, txid) {
         if (error) {
           _alert({ message: error }, 'error');
@@ -129,7 +129,7 @@ $(document).ready(function($) {
       _alert('Please accept the TOS.', 'error');
       return;
     }
-    if (typeof document.transactions == 'undefined' || !document.transactions.length) {
+    if (typeof document.transactions === 'undefined' || !document.transactions.length) {
       _alert('You do not have any transactions to payout.  Please add payees to the form.', 'error');
       return;
     }
@@ -194,7 +194,7 @@ var get_total_cost = function() {
     var $rows = $(rows[i]);
     var amount = parseFloat($rows.find('.amount').text());
     var username = $rows.find('.username-search').text();
-    var is_error = !$.isNumeric(amount) || amount <= 0 || username == '' || username == '@';
+    var is_error = !$.isNumeric(amount) || amount <= 0 || username === '' || username === '@';
 
     if (!is_error) {
       total += amount;
@@ -271,7 +271,7 @@ var update_registry = function(coinbase) {
     var amount = parseFloat($row.find('.amount').text());
     var username = $row.find('.username-search').text();
 
-    if (username == '')
+    if (username === '')
       return;
 
     transaction = {
@@ -287,7 +287,7 @@ var update_registry = function(coinbase) {
       }
     };
 
-    var is_error = !$.isNumeric(amount) || amount <= 0 || username == '' || username == '@';
+    var is_error = !$.isNumeric(amount) || amount <= 0 || username === '' || username === '@';
 
     if (!is_error)
       transactions.push(transaction);
