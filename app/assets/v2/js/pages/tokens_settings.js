@@ -29,7 +29,7 @@ $(document).ready(function() {
     var token_name = $('select[name=denomination] option:selected').text().trim();
     
     // validation
-    if (token_address == '0x0000000000000000000000000000000000000000') {
+    if (token_address === '0x0000000000000000000000000000000000000000') {
       _alert('You already are approved for this token');
       e.preventDefault();
       return;
@@ -42,7 +42,7 @@ $(document).ready(function() {
     var to = contract_address;
 
     token_contract.allowance.call(from, to, function(error, result) {
-      if (error || result.toNumber() == 0) {
+      if (error || result.toNumber() === 0) {
         var amount = 10 * 18 * 9999999999999999999999999999999999999999999999999999; // uint256
 
         token_contract.approve(
