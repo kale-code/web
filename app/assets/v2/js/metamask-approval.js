@@ -55,7 +55,7 @@ function ask_metamask_connection() {
   if (page_url.lastIndexOf('/') === len) {
     page_url = page_url.substring(0, len);
   }
-  if ($.inArray(page_url, shown_on) != -1 && !is_metamask_approved) {
+  if ($.inArray(page_url, shown_on) !== -1 && !is_metamask_approved) {
     _alert('Metamask not connected. <button id="metamask_connect" onclick="approve_metamask()">Click here to connect to metamask</button>', 'error');
     $('#metamask_connect').css('background', 'none');
     $('#metamask_connect').css('color', 'white');
