@@ -32,7 +32,7 @@ window.onload = function() {
         const selectedRadio = $('input[name=canceled_bounty_reason]:checked').val();
         let reasonCancel;
 
-        if (selectedRadio == 'other') {
+        if (selectedRadio === 'other') {
           reasonCancel = $('#reason_text').val();
         } else {
           reasonCancel = selectedRadio;
@@ -57,7 +57,7 @@ window.onload = function() {
         var bounty = web3.eth.contract(bounty_abi).at(bounty_address());
 
         var apiCallback = function(results, status) {
-          if (status != 'success') {
+          if (status !== 'success') {
             _alert({ message: gettext('Could not get bounty details') });
             console.error(error);
             unloading_button($('.submitBounty'));
@@ -80,11 +80,11 @@ window.onload = function() {
 
           let errormsg = undefined;
 
-          if (bountyAmount == 0 || is_open == false) {
+          if (bountyAmount === 0 || is_open === false) {
             errormsg =
                 gettext('No active funded issue found at this address.  Are you sure this is an active funded issue?');
           }
-          if (fromAddress != web3.eth.coinbase) {
+          if (fromAddress !== web3.eth.coinbase) {
             errormsg =
                 gettext('Only the address that submitted this funded issue may kill the bounty.');
           }
