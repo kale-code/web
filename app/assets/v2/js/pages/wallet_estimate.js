@@ -83,7 +83,7 @@ function prefill_recommended_prices() {
   var avg_data = get_updated_metamask_conf_time_and_cost(parseFloat($('#average-recommended-gas').data('amount')));
   var fast_data = get_updated_metamask_conf_time_and_cost(parseFloat($('#fast-recommended-gas').data('amount')));
 
-  if (fast_data['time'] == 'unknown') {
+  if (fast_data['time'] === 'unknown') {
     $('#default-recommended-gas').show();
     $('#default-recommended-gas').html('The confirmation time is unknown. However we recommend a gas price of $' + parseFloat(fast_data['usd']).toFixed(2));
     $('#default-recommended-gas').data('amount-usd', parseFloat(fast_data['usd']).toFixed(2));
