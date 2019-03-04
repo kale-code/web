@@ -60,8 +60,8 @@ $(document).ready(function() {
     }
     var is_issueURL_invalid = issueURL == '' ||
         issueURL.indexOf('http') != 0 ||
-        issueURL.indexOf('github') == -1 ||
-        issueURL.indexOf('javascript:') != -1
+        !issueURL.includes('github') ||
+        issueURL.includes('javascript:')
 
     ;
     if (is_issueURL_invalid) {
