@@ -81,7 +81,7 @@ window.onload = function() {
 
           if (error) {
             console.error(error);
-            ignore_error = String(error).indexOf('BigNumber') != -1;
+            ignore_error = String(error).includes('BigNumber');
           }
           document.ipfsDataHash = result; // Cache IPFS data hash
           var run_main = !error || ignore_error;
