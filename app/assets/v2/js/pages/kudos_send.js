@@ -346,7 +346,7 @@ function sendKudos(email, github_url, from_name, username, amountInEth, comments
   }
   // setup
 
-  if (username && username.indexOf('@') == -1) {
+  if (username && !username.includes('@')) {
     username = '@' + username;
   }
   var _disableDeveloperTip = true;
