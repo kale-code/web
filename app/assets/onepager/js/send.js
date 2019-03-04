@@ -160,7 +160,7 @@ function sendTip(email, github_url, from_name, username, amountInEth, comments_p
   // setup
   var fromAccount = web3.eth.accounts[0];
 
-  if (username.indexOf('@') == -1) {
+  if (!username.includes('@')) {
     username = '@' + username;
   }
 
